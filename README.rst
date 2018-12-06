@@ -16,8 +16,6 @@ Steps
 
 Requirements
 ============
-Currently this script works only on linux, I plan to make one for Windows soon.
-
 * Python 3
 * PyQt5
 * pyxhook (if on linux)
