@@ -148,7 +148,7 @@ class Master(QtWidgets.QDialog):
                 "preview_bottom": "823"
             }
 
-            if len(self.screens) > 0:
+            if len(self.screens) > 1:
                 self.settings['target_monitor'] = self.screens[1].name()
 
         self.target_monitor = self.settings['target_monitor']
