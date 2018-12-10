@@ -191,10 +191,10 @@ class Master(QtWidgets.QDialog):
         self.screen_layout.addWidget(self.target_monitor_cb)
         self.v_layout.addLayout(self.screen_layout)
 
-        self.draw_label = QtWidgets.QLabel("Draw: B")
+        self.draw_label = QtWidgets.QLabel("Draw: Right Alt")
         self.v_layout.addWidget(self.draw_label)
 
-        self.laser_label = QtWidgets.QLabel("Laser: Alt")
+        self.laser_label = QtWidgets.QLabel("Laser: Left Alt")
         self.v_layout.addWidget(self.laser_label)
 
 
@@ -292,7 +292,7 @@ class Master(QtWidgets.QDialog):
         if event.Key == 'Lmenu' or event.Key == 'Alt_L':
             self.red_dot.show()
 
-        elif event.Key.lower() == 'b':
+        elif event.Key == 'Rmenu' or event.Key == 'Alt_R':
             pos = QtGui.QCursor().pos()
             x = pos.x()
             y = pos.y()
@@ -316,7 +316,7 @@ class Master(QtWidgets.QDialog):
     def keyup(self, event):
         if event.Key == 'Lmenu' or event.Key == 'Alt_L':
             self.red_dot.hide()
-        elif event.Key.lower() == 'b':
+        elif event.Key == 'Rmenu' or event.Key == 'Alt_R':
             self.draw_box.hide()
         return 1
 

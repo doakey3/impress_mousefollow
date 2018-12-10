@@ -8,8 +8,8 @@ A simple script for displaying a laser pointer on the screen during a libreoffic
 Usage
 =====
 1. Set the monitor dropdown option to the audience-view monitor
-2. Hold "B", click and drag to draw a box around preview area
-3. Hold "Alt" to display laser pointer
+2. Hold "R Alt", click and drag to draw a box around preview area
+3. Hold "L Alt" to display laser pointer
 
 Installation
 ============
