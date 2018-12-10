@@ -1,4 +1,5 @@
 import os
+import time
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -21,6 +22,7 @@ class Mover(QtCore.QThread):
     def run(self):
         while True:
             self.signal.emit('')
+            time.sleep(0.0333)
 
 
 class RedDot(QtWidgets.QWidget):
@@ -235,49 +237,50 @@ class Master(QtWidgets.QDialog):
         self.save_ini()
 
     def move_dot(self):
-        laser_width = self.red_dot.frameGeometry().width()
-        laser_height = self.red_dot.frameGeometry().height()
+        if self.red_dot.isVisible():
+            laser_width = self.red_dot.frameGeometry().width()
+            laser_height = self.red_dot.frameGeometry().height()
 
-        pos = QtGui.QCursor().pos()
-        x = pos.x()
-        y = pos.y()
+            pos = QtGui.QCursor().pos()
+            x = pos.x()
+            y = pos.y()
 
-        width = self.preview_right - self.preview_left
-        height = self.preview_bottom - self.preview_top
-
-        if width == 0:
-            self.preview_left = 0
-            self.preview_right = 1920
             width = self.preview_right - self.preview_left
-
-        if height == 0:
-            self.preview_top = 0
-            self.preview_bottom = 1080
             height = self.preview_bottom - self.preview_top
 
-        x_fac = (x - self.preview_left) / width
-        y_fac = (y - self.preview_top) / height
+            if width == 0:
+                self.preview_left = 0
+                self.preview_right = 1920
+                width = self.preview_right - self.preview_left
 
-        for screen in self.screens:
-            if screen.name() == self.target_monitor_cb.currentText():
-                target_screen = screen
-                break
+            if height == 0:
+                self.preview_top = 0
+                self.preview_bottom = 1080
+                height = self.preview_bottom - self.preview_top
 
-        geometry = target_screen.geometry()
-        new_x = geometry.left() + (geometry.width() * x_fac) - (laser_width / 2)
-        new_y = geometry.top() + (geometry.height() * y_fac) - (laser_height / 2)
+            x_fac = (x - self.preview_left) / width
+            y_fac = (y - self.preview_top) / height
 
-        if new_x < geometry.left():
-            new_x = geometry.left()
-        elif new_x > geometry.left() + geometry.width() - laser_width:
-            new_x = geometry.left() + geometry.width() - laser_width
+            for screen in self.screens:
+                if screen.name() == self.target_monitor_cb.currentText():
+                    target_screen = screen
+                    break
 
-        if new_y < geometry.top():
-            new_y = geometry.top()
-        elif new_y > geometry.top() + geometry.height() - laser_width:
-            new_y = geometry.top() + geometry.height() - laser_width
+            geometry = target_screen.geometry()
+            new_x = geometry.left() + (geometry.width() * x_fac) - (laser_width / 2)
+            new_y = geometry.top() + (geometry.height() * y_fac) - (laser_height / 2)
 
-        self.red_dot.move(new_x, new_y)
+            if new_x < geometry.left():
+                new_x = geometry.left()
+            elif new_x > geometry.left() + geometry.width() - laser_width:
+                new_x = geometry.left() + geometry.width() - laser_width
+
+            if new_y < geometry.top():
+                new_y = geometry.top()
+            elif new_y > geometry.top() + geometry.height() - laser_width:
+                new_y = geometry.top() + geometry.height() - laser_width
+
+            self.red_dot.move(new_x, new_y)
 
 
     def closeEvent(self, event):
