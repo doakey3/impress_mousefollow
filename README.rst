@@ -1,7 +1,7 @@
-====================
-Impress Mouse Follow
-====================
-A simple script for displaying a laser pointer on the screen during a libreoffice presentation.
+============
+Mouse Follow
+============
+A simple script for displaying a laser pointer on the screen during a libreoffice/PowerPoint presentation.
 
 .. image:: https://i.imgur.com/p6ftxd4.gif
 
